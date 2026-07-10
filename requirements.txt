@@ -1,0 +1,9 @@
+sentence-transformers
+chromadb
+fastapi
+uvicorn
+streamlit
+python-dotenv
+groq
+openpyxl
+pandas
