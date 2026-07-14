@@ -4,10 +4,6 @@ import os
 
 sys.path.append(os.path.dirname(__file__))
 
-# Check if the vector database already exists; if not, build it
-if not os.path.exists("data/chroma_db"):
-    with st.spinner("First-time setup: building the search index... (takes 1-2 minutes)"):
-        import build_index  # running this file executes the indexing code
 
 from rag import generate_answer
 from retrieve import search

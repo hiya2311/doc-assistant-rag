@@ -1,11 +1,16 @@
-from dotenv import load_dotenv
 import os
 from groq import Groq
 from retrieve import search
 
-# Load your API key from .env
-load_dotenv()
-client = Groq(api_key=os.getenv("GROQ_API_KEY"))
+try:
+    import streamlit as st
+    api_key = st.secrets["GROQ_API_KEY"]
+except Exception:
+    from dotenv import load_dotenv
+    load_dotenv()
+    api_key = os.getenv("GROQ_API_KEY")
+
+client = Groq(api_key=api_key)
 
 def generate_answer(query, n_results=3):
     """
