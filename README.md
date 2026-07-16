@@ -52,3 +52,16 @@ streamlit run app/ui.py
 
 ## 📊 Dataset
 [Multilingual Customer Support Tickets](https://www.kaggle.com/datasets/tobiasbueck/multilingual-customer-support-tickets) — Kagglegit --versiongit --version
+
+## 📊 Evaluation
+
+To validate retrieval quality, I built a small evaluation script (`app/evaluate.py`) testing 10 queries spanning different support categories (AWS costs, server crashes, password resets, database issues, performance, VPN, email outages, 2FA, licensing, and printer issues).
+
+**Result:** 9 out of 10 queries (90%) retrieved at least one clearly relevant ticket within the top 3 results.
+
+**Limitation identified:** Some retrieved chunks lacked a clear subject line due to character-based chunking splitting tickets mid-context rather than at natural sentence/section boundaries. A future improvement would be sentence-aware or semantic chunking that better respects document structure.
+
+Run the evaluation yourself:
+```bash
+python app/evaluate.py
+```
