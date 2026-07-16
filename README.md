@@ -1,5 +1,6 @@
 # 🛠️ AI-Powered IT Documentation Support Assistant
 ![App Screenshot](screenshot.png)
+
 🔗 **[Try the Live Demo](https://doc-assistant-rag-7veycfk2hee7q8zoxir8xb.streamlit.app)**
 A Retrieval-Augmented Generation (RAG) system that answers IT support questions by retrieving relevant past support tickets and generating grounded, natural-language answers using an LLM.
 

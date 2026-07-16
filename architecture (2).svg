@@ -1,0 +1,122 @@
+<svg viewBox="0 0 1050 620" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Arial, sans-serif">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#64748B"/>
+    </marker>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#0F172A" flood-opacity="0.12"/>
+    </filter>
+  </defs>
+
+  <rect width="1050" height="620" fill="#FBFCFE"/>
+
+  <!-- ================= SECTION 1: OFFLINE INDEXING ================= -->
+  <rect x="30" y="30" width="990" height="230" rx="14" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1.5" stroke-dasharray="6,4"/>
+  <text x="55" y="60" font-size="15" font-weight="bold" fill="#475569">OFFLINE — Indexing Pipeline</text>
+  <text x="55" y="78" font-size="11" fill="#94A3B8">Runs once, whenever the underlying ticket data changes</text>
+
+  <!-- Raw dataset -->
+  <rect x="55" y="100" width="150" height="90" rx="10" fill="#FFFFFF" stroke="#64748B" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="130" y="130" text-anchor="middle" font-size="12" font-weight="bold" fill="#1E293B">Raw Dataset</text>
+  <text x="130" y="148" text-anchor="middle" font-size="10.5" fill="#64748B">4,000 multilingual</text>
+  <text x="130" y="163" text-anchor="middle" font-size="10.5" fill="#64748B">support tickets</text>
+  <text x="130" y="178" text-anchor="middle" font-size="10.5" fill="#64748B">(Kaggle CSV)</text>
+
+  <line x1="205" y1="145" x2="245" y2="145" stroke="#64748B" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- Clean + filter -->
+  <rect x="250" y="100" width="150" height="90" rx="10" fill="#FFFFFF" stroke="#64748B" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="325" y="130" text-anchor="middle" font-size="12" font-weight="bold" fill="#1E293B">Clean &amp; Filter</text>
+  <text x="325" y="148" text-anchor="middle" font-size="10.5" fill="#64748B">English-only rows</text>
+  <text x="325" y="163" text-anchor="middle" font-size="10.5" fill="#64748B">→ 1,391 tickets</text>
+  <text x="325" y="178" text-anchor="middle" font-size="10.5" fill="#64748B">(pandas)</text>
+
+  <line x1="400" y1="145" x2="440" y2="145" stroke="#64748B" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- Chunking -->
+  <rect x="445" y="100" width="150" height="90" rx="10" fill="#FFFFFF" stroke="#64748B" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="520" y="130" text-anchor="middle" font-size="12" font-weight="bold" fill="#1E293B">Chunking</text>
+  <text x="520" y="148" text-anchor="middle" font-size="10.5" fill="#64748B">800 chars, 100</text>
+  <text x="520" y="163" text-anchor="middle" font-size="10.5" fill="#64748B">overlap window</text>
+  <text x="520" y="178" text-anchor="middle" font-size="10.5" fill="#64748B">→ 3,397 chunks</text>
+
+  <line x1="595" y1="145" x2="635" y2="145" stroke="#64748B" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- Embedding -->
+  <rect x="640" y="100" width="150" height="90" rx="10" fill="#FFFFFF" stroke="#2563EB" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="715" y="130" text-anchor="middle" font-size="12" font-weight="bold" fill="#1E3A8A">Embedding Model</text>
+  <text x="715" y="148" text-anchor="middle" font-size="10.5" fill="#475569">sentence-transformers</text>
+  <text x="715" y="163" text-anchor="middle" font-size="10.5" fill="#475569">all-MiniLM-L6-v2</text>
+  <text x="715" y="178" text-anchor="middle" font-size="10.5" fill="#475569">384-dim vectors</text>
+
+  <line x1="790" y1="145" x2="830" y2="145" stroke="#64748B" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- Vector DB storage -->
+  <rect x="835" y="100" width="150" height="90" rx="10" fill="#EFF6FF" stroke="#2563EB" stroke-width="2" filter="url(#shadow)"/>
+  <text x="910" y="130" text-anchor="middle" font-size="12" font-weight="bold" fill="#1E3A8A">ChromaDB</text>
+  <text x="910" y="148" text-anchor="middle" font-size="10.5" fill="#1E40AF">Persistent vector</text>
+  <text x="910" y="163" text-anchor="middle" font-size="10.5" fill="#1E40AF">store (on disk)</text>
+  <text x="910" y="178" text-anchor="middle" font-size="10.5" fill="#1E40AF">shipped in repo</text>
+
+  <!-- Connector to online section -->
+  <line x1="910" y1="190" x2="910" y2="225" stroke="#2563EB" stroke-width="2" stroke-dasharray="4,3"/>
+  <text x="925" y="215" font-size="10" fill="#2563EB" font-style="italic">reused at</text>
+  <text x="925" y="228" font-size="10" fill="#2563EB" font-style="italic">query time</text>
+
+  <!-- ================= SECTION 2: ONLINE QUERY ================= -->
+  <rect x="30" y="290" width="990" height="230" rx="14" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1.5" stroke-dasharray="6,4"/>
+  <text x="55" y="320" font-size="15" font-weight="bold" fill="#475569">ONLINE — Query Pipeline</text>
+  <text x="55" y="338" font-size="11" fill="#94A3B8">Runs live, once per user question via the Streamlit app</text>
+
+  <!-- User query -->
+  <rect x="55" y="360" width="140" height="90" rx="10" fill="#FFFFFF" stroke="#64748B" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="125" y="392" text-anchor="middle" font-size="12" font-weight="bold" fill="#1E293B">User</text>
+  <text x="125" y="410" text-anchor="middle" font-size="12" font-weight="bold" fill="#1E293B">Question</text>
+  <text x="125" y="430" text-anchor="middle" font-size="10" fill="#64748B">(Streamlit UI)</text>
+
+  <line x1="195" y1="405" x2="235" y2="405" stroke="#64748B" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- Query embedding -->
+  <rect x="240" y="360" width="150" height="90" rx="10" fill="#FFFFFF" stroke="#2563EB" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="315" y="392" text-anchor="middle" font-size="12" font-weight="bold" fill="#1E3A8A">Embed Query</text>
+  <text x="315" y="410" text-anchor="middle" font-size="10.5" fill="#475569">Same MiniLM</text>
+  <text x="315" y="425" text-anchor="middle" font-size="10.5" fill="#475569">model as indexing</text>
+
+  <line x1="390" y1="405" x2="430" y2="405" stroke="#64748B" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- Semantic search -->
+  <rect x="435" y="360" width="150" height="90" rx="10" fill="#EFF6FF" stroke="#2563EB" stroke-width="2" filter="url(#shadow)"/>
+  <text x="510" y="392" text-anchor="middle" font-size="12" font-weight="bold" fill="#1E3A8A">Semantic Search</text>
+  <text x="510" y="410" text-anchor="middle" font-size="10.5" fill="#1E40AF">Cosine similarity</text>
+  <text x="510" y="425" text-anchor="middle" font-size="10.5" fill="#1E40AF">vs. ChromaDB</text>
+
+  <line x1="585" y1="405" x2="625" y2="405" stroke="#64748B" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- Top-k -->
+  <rect x="630" y="360" width="130" height="90" rx="10" fill="#FFFFFF" stroke="#64748B" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="695" y="392" text-anchor="middle" font-size="12" font-weight="bold" fill="#1E293B">Top-3</text>
+  <text x="695" y="410" text-anchor="middle" font-size="10.5" fill="#64748B">Retrieved</text>
+  <text x="695" y="425" text-anchor="middle" font-size="10.5" fill="#64748B">Ticket Chunks</text>
+
+  <line x1="760" y1="405" x2="800" y2="405" stroke="#64748B" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- LLM generation -->
+  <rect x="805" y="355" width="180" height="100" rx="10" fill="#2563EB" filter="url(#shadow)"/>
+  <text x="895" y="388" text-anchor="middle" font-size="12" font-weight="bold" fill="#FFFFFF">Grounded Generation</text>
+  <text x="895" y="406" text-anchor="middle" font-size="10.5" fill="#DBEAFE">Groq · Llama 3.1</text>
+  <text x="895" y="421" text-anchor="middle" font-size="10.5" fill="#DBEAFE">Context-only prompt</text>
+  <text x="895" y="436" text-anchor="middle" font-size="10.5" fill="#DBEAFE">(no outside knowledge)</text>
+
+  <!-- Output row -->
+  <line x1="895" y1="455" x2="895" y2="480" stroke="#64748B" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <rect x="770" y="483" width="250" height="30" rx="8" fill="#F1F5F9" stroke="#94A3B8" stroke-width="1"/>
+  <text x="895" y="502" text-anchor="middle" font-size="11" font-weight="bold" fill="#334155">Answer + Cited Source Tickets</text>
+
+  <!-- Footer -->
+  <text x="525" y="555" text-anchor="middle" font-size="12" fill="#64748B" font-style="italic">
+    Splitting indexing from querying avoids expensive re-embedding on every request —
+  </text>
+  <text x="525" y="573" text-anchor="middle" font-size="12" fill="#64748B" font-style="italic">
+    the vector store is built once and shipped with the app for fast, reliable startup.
+  </text>
+</svg>
