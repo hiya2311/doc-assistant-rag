@@ -26,15 +26,17 @@ def generate_answer(query, n_results=3):
     # Step 2: Build context from retrieved chunks
     context = "\n\n---\n\n".join(retrieved_chunks)
 
-    prompt = f"""You are an IT support assistant. Use the following past support tickets to answer the user's question. If the tickets don't contain relevant info, say so honestly.
+    prompt = f"""You are an IT support assistant. Answer the user's question using ONLY the information in the past support tickets below. Do not use any outside knowledge, even if you know the answer.
+
+If the tickets do not contain relevant information to answer the question, respond with exactly this: "I don't have relevant information in the support ticket database to answer this question." Do not provide any answer beyond that statement.
 
 Past support tickets:
 {context}
 
 User question: {query}
 
-Answer clearly and concisely, based on the tickets above:"""
-
+Answer using ONLY the tickets above:"""
+    
     # Step 3: Generate answer using Groq
     response = client.chat.completions.create(
         model="llama-3.1-8b-instant",
