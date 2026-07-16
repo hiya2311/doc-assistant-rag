@@ -65,3 +65,8 @@ Run the evaluation yourself:
 ```bash
 python app/evaluate.py
 ```
+## 🛡️ Grounding & Safety
+
+During testing, I discovered the LLM would sometimes fall back on its own general knowledge for out-of-scope questions (e.g., answering "What's the capital of France?" with "Paris" even after noting the tickets weren't relevant). This is a common RAG failure mode where the model doesn't stay strictly grounded in retrieved context.
+
+**Fix:** I tightened the prompt to explicitly instruct the model to rely only on retrieved tickets and to return a fixed refusal message when no relevant information exists, rather than supplementing with outside knowledge. This ensures answers are always traceable back to the actual ticket database — critical for trust in a real support tool.
